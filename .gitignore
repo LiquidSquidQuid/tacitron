@@ -9,7 +9,6 @@
 .expo/
 dist/
 web-build/
-expo-env.d.ts
 
 # Native
 .kotlin/
@@ -48,6 +47,8 @@ app-example
 /dist
 
 # Misc
+.env
+.env.local
 .env.development.local
 .env.test.local
 .env.production.local
