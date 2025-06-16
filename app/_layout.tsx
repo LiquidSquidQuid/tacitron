@@ -15,7 +15,7 @@ export default function RootLayout() {
           headerTintColor: '#00ff88',
           headerTitleStyle: {
             fontWeight: 'bold',
-            letterSpacing: 2,
+            ...(Platform.OS !== 'web' && { letterSpacing: 2 }),
           },
         }}
       >

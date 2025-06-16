@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
     color: '#00ff88',
     fontSize: 32,
     fontWeight: 'bold',
-    letterSpacing: 4,
+    ...(Platform.OS !== 'web' && { letterSpacing: 4 }),
   },
   content: {
     flex: 1,
@@ -146,24 +146,24 @@ const styles = StyleSheet.create({
     fontSize: 48,
     fontWeight: 'bold',
     color: '#00ff88',
-    letterSpacing: 6,
-    textShadowColor: '#00ff88',
-    textShadowOffset: { width: 0, height: 0 },
-    textShadowRadius: 10,
+    ...(Platform.OS !== 'web' && { 
+      letterSpacing: 6,
+      textShadowColor: '#00ff88',
+      textShadowOffset: { width: 0, height: 0 },
+      textShadowRadius: 10,
+    }),
   },
   titleWeb: {
     fontSize: 48,
     fontWeight: 'bold',
     color: '#00ff88',
-    letterSpacing: '6px',
-    textShadow: '0 0 10px #00ff88',
   },
   subtitle: {
     fontSize: 16,
     color: '#64b5f6',
-    letterSpacing: 3,
     marginTop: 10,
     opacity: 0.8,
+    ...(Platform.OS !== 'web' && { letterSpacing: 3 }),
   },
   description: {
     marginBottom: 40,
@@ -195,7 +195,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#b0b0b0',
     textAlign: 'center',
-    letterSpacing: 1,
+    ...(Platform.OS !== 'web' && { letterSpacing: 1 }),
   },
   buttons: {
     width: '100%',
@@ -217,7 +217,7 @@ const styles = StyleSheet.create({
     color: '#0f0f11',
     fontSize: 16,
     fontWeight: 'bold',
-    letterSpacing: 2,
+    ...(Platform.OS !== 'web' && { letterSpacing: 2 }),
   },
   secondaryButton: {
     backgroundColor: 'transparent',
@@ -227,7 +227,7 @@ const styles = StyleSheet.create({
     color: '#64b5f6',
     fontSize: 16,
     fontWeight: 'bold',
-    letterSpacing: 2,
+    ...(Platform.OS !== 'web' && { letterSpacing: 2 }),
   },
   particles: {
     position: 'absolute',

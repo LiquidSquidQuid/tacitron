@@ -187,24 +187,24 @@ const styles = StyleSheet.create({
     fontSize: 32,
     fontWeight: 'bold',
     color: '#00ff88',
-    letterSpacing: 4,
-    textShadowColor: '#00ff88',
-    textShadowOffset: { width: 0, height: 0 },
-    textShadowRadius: 8,
+    ...(Platform.OS !== 'web' && {
+      letterSpacing: 4,
+      textShadowColor: '#00ff88',
+      textShadowOffset: { width: 0, height: 0 },
+      textShadowRadius: 8,
+    }),
   },
   titleWeb: {
     fontSize: 32,
     fontWeight: 'bold',
     color: '#00ff88',
-    letterSpacing: '4px',
-    textShadow: '0 0 8px #00ff88',
   },
   subtitle: {
     fontSize: 14,
     color: '#64b5f6',
-    letterSpacing: 2,
     marginTop: 8,
     opacity: 0.8,
+    ...(Platform.OS !== 'web' && { letterSpacing: 2 }),
   },
   form: {
     width: '100%',
@@ -217,9 +217,9 @@ const styles = StyleSheet.create({
   inputLabel: {
     fontSize: 12,
     color: '#00ff88',
-    letterSpacing: 1,
     marginBottom: 8,
     fontWeight: 'bold',
+    ...(Platform.OS !== 'web' && { letterSpacing: 1 }),
   },
   input: {
     borderWidth: 2,
@@ -247,7 +247,7 @@ const styles = StyleSheet.create({
     color: '#0f0f11',
     fontSize: 16,
     fontWeight: 'bold',
-    letterSpacing: 2,
+    ...(Platform.OS !== 'web' && { letterSpacing: 2 }),
   },
   secondaryButton: {
     backgroundColor: 'transparent',
@@ -257,7 +257,7 @@ const styles = StyleSheet.create({
     color: '#64b5f6',
     fontSize: 14,
     fontWeight: 'bold',
-    letterSpacing: 1,
+    ...(Platform.OS !== 'web' && { letterSpacing: 1 }),
   },
   disabledButton: {
     opacity: 0.6,
@@ -276,7 +276,7 @@ const styles = StyleSheet.create({
     color: '#666',
     paddingHorizontal: 16,
     fontSize: 12,
-    letterSpacing: 1,
+    ...(Platform.OS !== 'web' && { letterSpacing: 1 }),
   },
   backButton: {
     alignItems: 'center',
@@ -285,6 +285,6 @@ const styles = StyleSheet.create({
   backButtonText: {
     color: '#666',
     fontSize: 14,
-    letterSpacing: 1,
+    ...(Platform.OS !== 'web' && { letterSpacing: 1 }),
   },
 });
