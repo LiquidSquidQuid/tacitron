@@ -179,18 +179,20 @@ export default function Login() {
               <View style={styles.dividerLine} />
             </View>
 
-            <Link href="/signup" asChild>
-              <Pressable style={[styles.button, styles.secondaryButton]}>
-                <Text style={styles.secondaryButtonText}>CREATE NEW ACCOUNT</Text>
-              </Pressable>
-            </Link>
+            <Pressable 
+              style={[styles.button, styles.secondaryButton]}
+              onPress={() => router.push('/signup')}
+            >
+              <Text style={styles.secondaryButtonText}>CREATE NEW ACCOUNT</Text>
+            </Pressable>
           </View>
 
-          <Link href="/" asChild>
-            <Pressable style={styles.backButton}>
-              <Text style={styles.backButtonText}>← Back to Home</Text>
-            </Pressable>
-          </Link>
+          <Pressable 
+            style={styles.backButton}
+            onPress={() => router.push('/')}
+          >
+            <Text style={styles.backButtonText}>← Back to Home</Text>
+          </Pressable>
         </ScrollView>
       </LinearGradient>
     </KeyboardAvoidingView>

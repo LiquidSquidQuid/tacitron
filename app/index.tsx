@@ -1,4 +1,4 @@
-import { Link, Redirect } from 'expo-router';
+import { Link, Redirect, router } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Pressable, ImageBackground, Dimensions, Platform } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -77,17 +77,19 @@ export default function Index() {
           </View>
 
           <View style={styles.buttons}>
-            <Link href="/signup" asChild>
-              <Pressable style={[styles.button, styles.primaryButton]}>
-                <Text style={styles.primaryButtonText}>JOIN THE FLEET</Text>
-              </Pressable>
-            </Link>
+            <Pressable 
+              style={[styles.button, styles.primaryButton]}
+              onPress={() => router.push('/signup')}
+            >
+              <Text style={styles.primaryButtonText}>JOIN THE FLEET</Text>
+            </Pressable>
             
-            <Link href="/login" asChild>
-              <Pressable style={[styles.button, styles.secondaryButton]}>
-                <Text style={styles.secondaryButtonText}>COMMANDER LOGIN</Text>
-              </Pressable>
-            </Link>
+            <Pressable 
+              style={[styles.button, styles.secondaryButton]}
+              onPress={() => router.push('/login')}
+            >
+              <Text style={styles.secondaryButtonText}>COMMANDER LOGIN</Text>
+            </Pressable>
           </View>
         </View>
         
