@@ -49,7 +49,7 @@ export default function Index() {
       >
         <View style={styles.content}>
           <View style={styles.header}>
-            <Text style={[styles.title, Platform.OS === 'web' && styles.titleWeb]}>TACITRON</Text>
+            <Text style={Platform.OS === 'web' ? styles.titleWeb : styles.title}>TACITRON</Text>
             <Text style={styles.subtitle}>COMMAND THE VOID</Text>
           </View>
           
@@ -152,10 +152,11 @@ const styles = StyleSheet.create({
     textShadowRadius: 10,
   },
   titleWeb: {
+    fontSize: 48,
+    fontWeight: 'bold',
+    color: '#00ff88',
+    letterSpacing: '6px',
     textShadow: '0 0 10px #00ff88',
-    textShadowColor: undefined,
-    textShadowOffset: undefined,
-    textShadowRadius: undefined,
   },
   subtitle: {
     fontSize: 16,
@@ -206,6 +207,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     alignItems: 'center',
     borderWidth: 2,
+    marginBottom: 16,
   },
   primaryButton: {
     backgroundColor: '#00ff88',

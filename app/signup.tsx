@@ -87,7 +87,7 @@ export default function SignUp() {
       >
         <ScrollView contentContainerStyle={styles.scrollContent}>
           <View style={styles.header}>
-            <Text style={[styles.title, Platform.OS === 'web' && styles.titleWeb]}>JOIN THE FLEET</Text>
+            <Text style={Platform.OS === 'web' ? styles.titleWeb : styles.title}>JOIN THE FLEET</Text>
             <Text style={styles.subtitle}>Create your commander account</Text>
           </View>
 
@@ -193,10 +193,11 @@ const styles = StyleSheet.create({
     textShadowRadius: 8,
   },
   titleWeb: {
+    fontSize: 32,
+    fontWeight: 'bold',
+    color: '#00ff88',
+    letterSpacing: '4px',
     textShadow: '0 0 8px #00ff88',
-    textShadowColor: undefined,
-    textShadowOffset: undefined,
-    textShadowRadius: undefined,
   },
   subtitle: {
     fontSize: 14,
