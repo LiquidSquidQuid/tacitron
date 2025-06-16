@@ -14,8 +14,8 @@ export default function BandwidthGauge({ current, max }: BandwidthGaugeProps) {
       <View style={styles.gauge}>
         <View style={styles.track}>
           <View style={[styles.fill, { width: `${progress * 100}%` }]} />
+          <Text style={styles.text}>{current}/{max} BP</Text>
         </View>
-        <Text style={styles.text}>{current}/{max} BP</Text>
       </View>
     </View>
   );
@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 20,
     paddingVertical: 16,
+    alignItems: 'center',
   },
   label: {
     color: '#9ca3af',
@@ -36,25 +37,33 @@ const styles = StyleSheet.create({
   },
   gauge: {
     alignItems: 'center',
-    ...(Platform.OS !== 'web' && { gap: 8 }),
+    width: 240, // Match board width
   },
   track: {
-    width: '100%',
-    height: 8,
+    width: 240, // Match board width exactly
+    height: 24,
     backgroundColor: '#374151',
-    borderRadius: 4,
+    borderRadius: 6,
     overflow: 'hidden',
+    position: 'relative',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   fill: {
+    position: 'absolute',
+    left: 0,
+    top: 0,
     height: '100%',
     backgroundColor: '#8b5cf6',
-    borderRadius: 4,
+    borderRadius: 6,
   },
   text: {
     color: '#e5e7eb',
     fontSize: 14,
     fontWeight: '600',
-    marginTop: Platform.OS === 'web' ? 8 : 0,
+    position: 'absolute',
+    zIndex: 1,
+    textAlign: 'center',
     ...(Platform.OS !== 'web' && { fontFamily: 'monospace' }),
   },
 });

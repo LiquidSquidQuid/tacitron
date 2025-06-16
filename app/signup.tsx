@@ -261,6 +261,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     ...(Platform.OS !== 'web' && { letterSpacing: 1 }),
   },
+  buttonTextLarge: {
+    fontSize: 18,
+  },
   disabledButton: {
     opacity: 0.6,
   },
