@@ -28,12 +28,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   label: {
-    color: '#9ca3af',
+    color: '#64b5f6',
     fontSize: 12,
     fontWeight: '500',
     marginBottom: 8,
     textAlign: 'center',
-    ...(Platform.OS !== 'web' && { fontFamily: 'monospace' }),
+    ...(Platform.OS !== 'web' && { 
+      fontFamily: 'monospace',
+      letterSpacing: 1,
+    }),
   },
   gauge: {
     alignItems: 'center',
@@ -54,11 +57,11 @@ const styles = StyleSheet.create({
     left: 0,
     top: 0,
     height: '100%',
-    backgroundColor: '#8b5cf6',
+    backgroundColor: '#00ff88',
     borderRadius: 6,
   },
   text: {
-    color: '#e5e7eb',
+    color: '#0f0f11',
     fontSize: 14,
     fontWeight: '600',
     position: 'absolute',

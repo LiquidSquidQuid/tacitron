@@ -172,11 +172,11 @@ function ParticleCloud({ shipType, isPlayer }: ParticleCloudProps) {
     return () => clearInterval(interval);
   }, [shipType]);
 
-  const color = isPlayer ? '#60a5fa' : '#f87171'; // Brighter colors
-  const glowColor = isPlayer ? '#3b82f6' : '#ef4444';
+  const color = isPlayer ? '#00ff88' : '#64b5f6'; // Use homepage theme colors
+  const glowColor = isPlayer ? '#00ff88' : '#64b5f6';
 
   const getShapeContainer = () => {
-    const borderColor = isPlayer ? '#3b82f650' : '#ef444450';
+    const borderColor = isPlayer ? '#00ff8850' : '#64b5f650';
     
     switch (shipType) {
       case 'interceptor':

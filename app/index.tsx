@@ -26,6 +26,12 @@ export default function Index() {
       console.log('Index auth change:', event, session);
       setSession(session);
       setLoading(false);
+      
+      // Handle email confirmation success
+      if (event === 'SIGNED_IN' && session?.user?.email_confirmed_at) {
+        // User just confirmed their email and was signed in
+        console.log('User confirmed email and signed in');
+      }
     });
 
     return () => subscription.unsubscribe();

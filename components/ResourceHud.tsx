@@ -46,16 +46,24 @@ const styles = StyleSheet.create({
     ...(Platform.OS !== 'web' && { gap: 4 }),
   },
   label: {
-    color: '#9ca3af',
+    color: '#64b5f6',
     fontSize: 10,
     fontWeight: '600',
     marginBottom: Platform.OS === 'web' ? 4 : 0,
-    ...(Platform.OS !== 'web' && { fontFamily: 'monospace' }),
+    ...(Platform.OS !== 'web' && { 
+      fontFamily: 'monospace',
+      letterSpacing: 1,
+    }),
   },
   value: {
-    color: '#e5e7eb',
+    color: '#00ff88',
     fontSize: 14,
     fontWeight: '600',
-    ...(Platform.OS !== 'web' && { fontFamily: 'monospace' }),
+    ...(Platform.OS !== 'web' && { 
+      fontFamily: 'monospace',
+      textShadowColor: '#00ff88',
+      textShadowOffset: { width: 0, height: 0 },
+      textShadowRadius: 3,
+    }),
   },
 });

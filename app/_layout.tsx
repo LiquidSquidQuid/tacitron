@@ -24,7 +24,7 @@ export default function RootLayout() {
         <Stack.Screen name="signup" options={{ headerShown: false }} />
         <Stack.Screen name="play" options={{ headerShown: false }} />
       </Stack>
-      {Platform.OS !== 'web' && <Toast />}
+      <Toast />
     </>
   );
 }

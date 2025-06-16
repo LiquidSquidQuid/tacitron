@@ -141,6 +141,13 @@ export default function SignUp() {
                 {loading ? 'CREATING ACCOUNT...' : 'CREATE ACCOUNT'}
               </Text>
             </Pressable>
+            
+            <View style={styles.infoBox}>
+              <Text style={styles.infoText}>
+                💡 After creating your account, you'll receive a confirmation email. 
+                Click the link in the email to activate your account and gain access to the game.
+              </Text>
+            </View>
 
             <View style={styles.divider}>
               <View style={styles.dividerLine} />
@@ -291,5 +298,20 @@ const styles = StyleSheet.create({
     color: '#666',
     fontSize: 14,
     ...(Platform.OS !== 'web' && { letterSpacing: 1 }),
+  },
+  infoBox: {
+    backgroundColor: 'rgba(59, 130, 246, 0.1)',
+    borderWidth: 1,
+    borderColor: 'rgba(59, 130, 246, 0.3)',
+    borderRadius: 8,
+    padding: 16,
+    marginTop: 16,
+  },
+  infoText: {
+    color: '#64b5f6',
+    fontSize: 13,
+    lineHeight: 18,
+    textAlign: 'center',
+    opacity: 0.9,
   },
 });

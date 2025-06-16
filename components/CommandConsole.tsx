@@ -134,10 +134,15 @@ const styles = StyleSheet.create({
     marginBottom: 3,
   },
   prompt: {
-    color: '#3b82f6',
+    color: '#00ff88',
     fontSize: 14,
     marginBottom: 12,
-    ...(Platform.OS !== 'web' && { fontFamily: 'monospace' }),
+    ...(Platform.OS !== 'web' && { 
+      fontFamily: 'monospace',
+      textShadowColor: '#00ff88',
+      textShadowOffset: { width: 0, height: 0 },
+      textShadowRadius: 3,
+    }),
   },
   promptLarge: {
     fontSize: 16,
@@ -202,7 +207,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 0,
     width: 3,
-    backgroundColor: '#3b82f6',
+    backgroundColor: '#00ff88',
     borderRadius: 1.5,
     minHeight: 20,
   },

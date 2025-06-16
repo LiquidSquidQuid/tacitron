@@ -96,11 +96,28 @@ export default function Login() {
       }
     } catch (error) {
       const authError = error as AuthError;
-      Toast.show({
-        type: 'error',
-        text1: 'Login Failed',
-        text2: authError.message,
-      });
+      
+      // Handle specific error cases
+      if (authError.message.includes('Email not confirmed')) {
+        Toast.show({
+          type: 'error',
+          text1: 'Email Not Confirmed',
+          text2: 'Please check your email and click the confirmation link first',
+          visibilityTime: 6000,
+        });
+      } else if (authError.message.includes('Invalid login credentials')) {
+        Toast.show({
+          type: 'error',
+          text1: 'Invalid Credentials',
+          text2: 'Please check your email and password and try again',
+        });
+      } else {
+        Toast.show({
+          type: 'error',
+          text1: 'Login Failed',
+          text2: authError.message,
+        });
+      }
     } finally {
       setLoading(false);
     }
