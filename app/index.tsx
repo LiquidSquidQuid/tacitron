@@ -1,6 +1,6 @@
 import { Link, Redirect } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Pressable, ImageBackground, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, Pressable, ImageBackground, Dimensions, Platform } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { supabase } from '../lib/supabaseClient';
 
@@ -49,7 +49,7 @@ export default function Index() {
       >
         <View style={styles.content}>
           <View style={styles.header}>
-            <Text style={styles.title}>TACITRON</Text>
+            <Text style={[styles.title, Platform.OS === 'web' && styles.titleWeb]}>TACITRON</Text>
             <Text style={styles.subtitle}>COMMAND THE VOID</Text>
           </View>
           
@@ -147,13 +147,15 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#00ff88',
     letterSpacing: 6,
-    ...(Platform.OS === 'web' ? {
-      textShadow: '0 0 10px #00ff88',
-    } : {
-      textShadowColor: '#00ff88',
-      textShadowOffset: { width: 0, height: 0 },
-      textShadowRadius: 10,
-    }),
+    textShadowColor: '#00ff88',
+    textShadowOffset: { width: 0, height: 0 },
+    textShadowRadius: 10,
+  },
+  titleWeb: {
+    textShadow: '0 0 10px #00ff88',
+    textShadowColor: undefined,
+    textShadowOffset: undefined,
+    textShadowRadius: undefined,
   },
   subtitle: {
     fontSize: 16,

@@ -117,7 +117,7 @@ export default function Login() {
       >
         <ScrollView contentContainerStyle={styles.scrollContent}>
           <View style={styles.header}>
-            <Text style={styles.title}>COMMANDER LOGIN</Text>
+            <Text style={[styles.title, Platform.OS === 'web' && styles.titleWeb]}>COMMANDER LOGIN</Text>
             <Text style={styles.subtitle}>Access your fleet command</Text>
           </View>
 
@@ -219,13 +219,15 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#00ff88',
     letterSpacing: 3,
-    ...(Platform.OS === 'web' ? {
-      textShadow: '0 0 8px #00ff88',
-    } : {
-      textShadowColor: '#00ff88',
-      textShadowOffset: { width: 0, height: 0 },
-      textShadowRadius: 8,
-    }),
+    textShadowColor: '#00ff88',
+    textShadowOffset: { width: 0, height: 0 },
+    textShadowRadius: 8,
+  },
+  titleWeb: {
+    textShadow: '0 0 8px #00ff88',
+    textShadowColor: undefined,
+    textShadowOffset: undefined,
+    textShadowRadius: undefined,
   },
   subtitle: {
     fontSize: 14,
