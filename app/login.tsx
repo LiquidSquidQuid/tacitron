@@ -61,8 +61,8 @@ export default function Login() {
       
       if (useMagicLink) {
         const redirectUrl = Platform.OS === 'web' 
-          ? window.location.origin
-          : 'exp://localhost:19000';
+          ? `${window.location.origin}/auth-confirmed`
+          : 'exp://localhost:19000/--/auth-confirmed';
           
         const { error } = await supabase.auth.signInWithOtp({ 
           email,

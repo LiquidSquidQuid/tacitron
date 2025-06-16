@@ -43,9 +43,16 @@ export default function SignUp() {
     try {
       setLoading(true);
       
+      const redirectUrl = Platform.OS === 'web' 
+        ? `${window.location.origin}/auth-confirmed`
+        : 'exp://localhost:19000/--/auth-confirmed';
+        
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
+        options: {
+          emailRedirectTo: redirectUrl,
+        }
       });
       
       if (error) throw error;
