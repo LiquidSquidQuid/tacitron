@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Platform } from 'react-native';
 
 const commands = ['deploy', 'scan', 'hub', 'pass', 'help'];
 
@@ -28,13 +28,13 @@ const styles = StyleSheet.create({
   prompt: {
     color: '#3b82f6',
     fontSize: 14,
-    fontFamily: 'monospace',
     marginBottom: 12,
+    ...(Platform.OS !== 'web' && { fontFamily: 'monospace' }),
   },
   commands: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: 8,
+    ...(Platform.OS !== 'web' && { gap: 8 }),
   },
   command: {
     paddingHorizontal: 12,
@@ -43,10 +43,12 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     borderWidth: 1,
     borderColor: '#374151',
+    marginRight: Platform.OS === 'web' ? 8 : 0,
+    marginBottom: Platform.OS === 'web' ? 8 : 0,
   },
   commandText: {
     color: '#e5e7eb',
     fontSize: 12,
-    fontFamily: 'monospace',
+    ...(Platform.OS !== 'web' && { fontFamily: 'monospace' }),
   },
 });

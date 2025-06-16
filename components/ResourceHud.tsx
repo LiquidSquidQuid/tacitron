@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Platform } from 'react-native';
 
 interface ResourceHudProps {
   energy: number;
@@ -42,18 +42,19 @@ const styles = StyleSheet.create({
   },
   metric: {
     alignItems: 'center',
-    gap: 4,
+    ...(Platform.OS !== 'web' && { gap: 4 }),
   },
   label: {
     color: '#9ca3af',
     fontSize: 10,
-    fontFamily: 'monospace',
     fontWeight: '600',
+    marginBottom: Platform.OS === 'web' ? 4 : 0,
+    ...(Platform.OS !== 'web' && { fontFamily: 'monospace' }),
   },
   value: {
     color: '#e5e7eb',
     fontSize: 14,
-    fontFamily: 'monospace',
     fontWeight: '600',
+    ...(Platform.OS !== 'web' && { fontFamily: 'monospace' }),
   },
 });

@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Platform } from 'react-native';
 
 interface BandwidthGaugeProps {
   current: number;
@@ -29,14 +29,14 @@ const styles = StyleSheet.create({
   label: {
     color: '#9ca3af',
     fontSize: 12,
-    fontFamily: 'monospace',
     fontWeight: '500',
     marginBottom: 8,
     textAlign: 'center',
+    ...(Platform.OS !== 'web' && { fontFamily: 'monospace' }),
   },
   gauge: {
     alignItems: 'center',
-    gap: 8,
+    ...(Platform.OS !== 'web' && { gap: 8 }),
   },
   track: {
     width: '100%',
@@ -53,7 +53,8 @@ const styles = StyleSheet.create({
   text: {
     color: '#e5e7eb',
     fontSize: 14,
-    fontFamily: 'monospace',
     fontWeight: '600',
+    marginTop: Platform.OS === 'web' ? 8 : 0,
+    ...(Platform.OS !== 'web' && { fontFamily: 'monospace' }),
   },
 });

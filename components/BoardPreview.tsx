@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { View, StyleSheet, Animated } from 'react-native';
+import { View, StyleSheet, Animated, Platform } from 'react-native';
 
 interface ParticleCloudProps {
   shipType: 'interceptor' | 'support' | 'tank';
@@ -184,7 +184,9 @@ function ParticleCloud({ shipType, isPlayer }: ParticleCloudProps) {
           <View style={[styles.shapeContainer, styles.circleShape, { borderColor }]} />
         );
       case 'support':
-        return (
+        return Platform.OS === 'web' ? (
+          <View style={[styles.shapeContainer, styles.squareShape, { borderColor }]} />
+        ) : (
           <View style={[styles.shapeContainer, styles.triangleShape, { borderColor }]} />
         );
       case 'tank':
@@ -210,10 +212,12 @@ function ParticleCloud({ shipType, isPlayer }: ParticleCloudProps) {
               top: particle.y,
               opacity: particle.opacity,
               transform: [{ scale: particle.scale }],
-              shadowColor: glowColor,
-              shadowOpacity: 1,
-              shadowRadius: 4,
-              elevation: 8,
+              ...(Platform.OS !== 'web' && {
+                shadowColor: glowColor,
+                shadowOpacity: 1,
+                shadowRadius: 4,
+                elevation: 8,
+              }),
             }
           ]}
         />
