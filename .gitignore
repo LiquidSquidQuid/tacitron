@@ -58,3 +58,4 @@ app-example
 .vscode/
 *.swp
 *.swo
+.vercel

@@ -1,57 +1,41 @@
 import { AuthError } from '@supabase/supabase-js';
 import { Link, router } from 'expo-router';
-import { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, TextInput, Pressable, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
+import { useState } from 'react';
+import { View, Text, StyleSheet, TextInput, Pressable, Alert, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import Toast from 'react-native-toast-message';
 import { supabase } from '../lib/supabaseClient';
 
-export default function Login() {
+export default function SignUp() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [loading, setLoading] = useState(false);
-  const [useMagicLink, setUseMagicLink] = useState(false);
 
-  useEffect(() => {
-    // Check if user is already logged in
-    const checkSession = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      console.log('Current session:', session);
-      if (session) {
-        router.replace('/play');
-      }
-    };
-
-    checkSession();
-
-    // Listen for auth changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
-      console.log('Auth state change:', event, session);
-      if (event === 'SIGNED_IN' && session) {
-        router.replace('/play');
-      }
-    });
-
-    return () => {
-      subscription.unsubscribe();
-    };
-  }, []);
-
-  const handleLogin = async () => {
-    if (!email) {
+  const handleSignUp = async () => {
+    if (!email || !password || !confirmPassword) {
       Toast.show({
         type: 'error',
-        text1: 'Missing Email',
-        text2: 'Please enter your email address',
+        text1: 'Missing Fields',
+        text2: 'Please fill in all fields',
       });
       return;
     }
 
-    if (!useMagicLink && !password) {
+    if (password !== confirmPassword) {
       Toast.show({
         type: 'error',
-        text1: 'Missing Password',
-        text2: 'Please enter your password',
+        text1: 'Password Mismatch',
+        text2: 'Passwords do not match',
+      });
+      return;
+    }
+
+    if (password.length < 6) {
+      Toast.show({
+        type: 'error',
+        text1: 'Weak Password',
+        text2: 'Password must be at least 6 characters',
       });
       return;
     }
@@ -59,46 +43,32 @@ export default function Login() {
     try {
       setLoading(true);
       
-      if (useMagicLink) {
-        const redirectUrl = Platform.OS === 'web' 
-          ? window.location.origin
-          : 'exp://localhost:19000';
-          
-        const { error } = await supabase.auth.signInWithOtp({ 
-          email,
-          options: {
-            emailRedirectTo: redirectUrl
-          }
-        });
-        
-        if (error) throw error;
-        
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+      });
+      
+      if (error) throw error;
+      
+      if (data.user && !data.session) {
         Toast.show({
           type: 'success',
-          text1: 'Magic link sent!',
-          text2: 'Check your email to continue',
+          text1: 'Verification Required',
+          text2: 'Check your email to verify your account',
         });
-      } else {
-        const { data, error } = await supabase.auth.signInWithPassword({
-          email,
-          password,
-        });
-        
-        if (error) throw error;
-        
+      } else if (data.session) {
         Toast.show({
           type: 'success',
-          text1: 'Welcome back, Commander!',
-          text2: 'Successfully logged in',
+          text1: 'Welcome Commander!',
+          text2: 'Account created successfully',
         });
-        
         router.replace('/play');
       }
     } catch (error) {
       const authError = error as AuthError;
       Toast.show({
         type: 'error',
-        text1: 'Login Failed',
+        text1: 'Sign Up Failed',
         text2: authError.message,
       });
     } finally {
@@ -117,8 +87,8 @@ export default function Login() {
       >
         <ScrollView contentContainerStyle={styles.scrollContent}>
           <View style={styles.header}>
-            <Text style={styles.title}>COMMANDER LOGIN</Text>
-            <Text style={styles.subtitle}>Access your fleet command</Text>
+            <Text style={styles.title}>JOIN THE FLEET</Text>
+            <Text style={styles.subtitle}>Create your commander account</Text>
           </View>
 
           <View style={styles.form}>
@@ -136,40 +106,39 @@ export default function Login() {
               />
             </View>
 
-            {!useMagicLink && (
-              <View style={styles.inputContainer}>
-                <Text style={styles.inputLabel}>PASSWORD</Text>
-                <TextInput
-                  style={styles.input}
-                  placeholder="Enter your password"
-                  placeholderTextColor="#666"
-                  value={password}
-                  onChangeText={setPassword}
-                  secureTextEntry
-                  autoComplete="current-password"
-                />
-              </View>
-            )}
+            <View style={styles.inputContainer}>
+              <Text style={styles.inputLabel}>PASSWORD</Text>
+              <TextInput
+                style={styles.input}
+                placeholder="Enter secure password"
+                placeholderTextColor="#666"
+                value={password}
+                onChangeText={setPassword}
+                secureTextEntry
+                autoComplete="new-password"
+              />
+            </View>
+
+            <View style={styles.inputContainer}>
+              <Text style={styles.inputLabel}>CONFIRM PASSWORD</Text>
+              <TextInput
+                style={styles.input}
+                placeholder="Confirm your password"
+                placeholderTextColor="#666"
+                value={confirmPassword}
+                onChangeText={setConfirmPassword}
+                secureTextEntry
+                autoComplete="new-password"
+              />
+            </View>
 
             <Pressable
               style={[styles.button, styles.primaryButton, loading && styles.disabledButton]}
-              onPress={handleLogin}
+              onPress={handleSignUp}
               disabled={loading}
             >
               <Text style={styles.primaryButtonText}>
-                {loading 
-                  ? (useMagicLink ? 'SENDING LINK...' : 'LOGGING IN...') 
-                  : (useMagicLink ? 'SEND MAGIC LINK' : 'LOGIN')
-                }
-              </Text>
-            </Pressable>
-
-            <Pressable
-              style={styles.linkButton}
-              onPress={() => setUseMagicLink(!useMagicLink)}
-            >
-              <Text style={styles.linkButtonText}>
-                {useMagicLink ? 'Use password instead' : 'Use magic link instead'}
+                {loading ? 'CREATING ACCOUNT...' : 'CREATE ACCOUNT'}
               </Text>
             </Pressable>
 
@@ -179,9 +148,9 @@ export default function Login() {
               <View style={styles.dividerLine} />
             </View>
 
-            <Link href="/signup" asChild>
+            <Link href="/login" asChild>
               <Pressable style={[styles.button, styles.secondaryButton]}>
-                <Text style={styles.secondaryButtonText}>CREATE NEW ACCOUNT</Text>
+                <Text style={styles.secondaryButtonText}>ALREADY A COMMANDER?</Text>
               </Pressable>
             </Link>
           </View>
@@ -215,10 +184,10 @@ const styles = StyleSheet.create({
     marginBottom: 40,
   },
   title: {
-    fontSize: 28,
+    fontSize: 32,
     fontWeight: 'bold',
     color: '#00ff88',
-    letterSpacing: 3,
+    letterSpacing: 4,
     textShadowColor: '#00ff88',
     textShadowOffset: { width: 0, height: 0 },
     textShadowRadius: 8,
@@ -286,15 +255,6 @@ const styles = StyleSheet.create({
   disabledButton: {
     opacity: 0.6,
   },
-  linkButton: {
-    alignItems: 'center',
-    marginBottom: 20,
-  },
-  linkButtonText: {
-    color: '#999',
-    fontSize: 14,
-    textDecorationLine: 'underline',
-  },
   divider: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -320,4 +280,4 @@ const styles = StyleSheet.create({
     fontSize: 14,
     letterSpacing: 1,
   },
-}); 
+});

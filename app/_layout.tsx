@@ -10,11 +10,18 @@ export default function RootLayout() {
       <Stack
         screenOptions={{
           headerStyle: {
-            backgroundColor: colorScheme === 'dark' ? '#000' : '#fff',
+            backgroundColor: '#0f0f11',
           },
-          headerTintColor: colorScheme === 'dark' ? '#fff' : '#000',
+          headerTintColor: '#00ff88',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+            letterSpacing: 2,
+          },
         }}
       >
+        <Stack.Screen name="index" options={{ headerShown: false }} />
+        <Stack.Screen name="login" options={{ headerShown: false }} />
+        <Stack.Screen name="signup" options={{ headerShown: false }} />
         <Stack.Screen name="play" options={{ headerShown: false }} />
       </Stack>
       {Platform.OS !== 'web' && <Toast />}
