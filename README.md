@@ -23,7 +23,8 @@ A tactical space combat game featuring deep strategy in a compact 3×3 grid form
 
 1. Clone the repository
 2. Install dependencies: `npm install`
-3. Start development server: `npm start`
+3. Create a `.env` file with your Supabase credentials. An `.env.example` file is provided as a template. You can also run `npm run setup` to generate the file interactively.
+4. Start the development server: `npm start`
 
 ## Tech Stack
 
