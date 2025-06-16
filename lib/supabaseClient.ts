@@ -3,13 +3,12 @@ import { createClient } from '@supabase/supabase-js';
 import Constants from 'expo-constants';
 import 'react-native-url-polyfill/auto';
 
-// Get the environment variables
-const supabaseUrl = EXPO_PUBLIC_SUPABASE_URL || Constants.expoConfig?.extra?.supabaseUrl;
-const supabaseAnonKey = EXPO_PUBLIC_SUPABASE_ANON_KEY || Constants.expoConfig?.extra?.supabaseAnonKey;
-
-// Log the values (remove in production)
-console.log('Supabase URL:', supabaseUrl);
-console.log('Supabase Key exists:', !!supabaseAnonKey);
+// Resolve environment variables either from the build-time .env file or from
+// the Expo config extras.
+const supabaseUrl =
+  EXPO_PUBLIC_SUPABASE_URL || (Constants.expoConfig?.extra?.supabaseUrl as string);
+const supabaseAnonKey =
+  EXPO_PUBLIC_SUPABASE_ANON_KEY || (Constants.expoConfig?.extra?.supabaseAnonKey as string);
 
 if (!supabaseUrl || !supabaseAnonKey) {
   throw new Error(
