@@ -22,7 +22,8 @@ export default {
       bundler: "metro"
     },
     plugins: [
-      "expo-router"
+      "expo-router",
+      "expo-font"
     ],
     scheme: "tacitron",
     extra: {

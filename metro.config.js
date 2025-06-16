@@ -18,4 +18,13 @@ config.server = {
   },
 };
 
+// Web-specific configuration
+if (process.env.EXPO_PLATFORM === 'web') {
+  // Ensure environment variables are available in web builds
+  config.resolver.alias = {
+    ...config.resolver.alias,
+    '@env': require.resolve('./env-web.js'),
+  };
+}
+
 module.exports = config; 
