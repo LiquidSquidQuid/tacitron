@@ -23,12 +23,14 @@ export default function PlayScreen() {
     router.replace('/');
   };
 
-  if (Platform.OS === 'web') {
+  // Temporarily use fallback for all platforms to debug
+  // if (Platform.OS === 'web') {
     return (
       <View style={styles.container}>
         <View style={styles.webFallback}>
           <Text style={styles.webTitle}>TACITRON</Text>
-          <Text style={styles.webSubtitle}>Game interface loading...</Text>
+          <Text style={styles.webSubtitle}>Game interface (debug mode)</Text>
+          <Text style={styles.webInfo}>Platform: {Platform.OS}</Text>
           <Text style={styles.webInfo}>Energy: 142 | Alloy: 89 | Power: 2340 | Tier: 12</Text>
           <Text style={styles.webInfo}>Bandwidth: {currentBP}/{capBP} BP</Text>
           
@@ -38,7 +40,7 @@ export default function PlayScreen() {
         </View>
       </View>
     );
-  }
+  // }
 
   return (
     <View style={styles.container}>
