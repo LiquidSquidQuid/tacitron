@@ -36,9 +36,10 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     paddingHorizontal: 20,
     paddingVertical: 12,
-    backgroundColor: '#161618',
+    backgroundColor: 'transparent',
     borderBottomWidth: 1,
     borderBottomColor: '#2a2a2e',
+    flex: 1,
   },
   metric: {
     alignItems: 'center',

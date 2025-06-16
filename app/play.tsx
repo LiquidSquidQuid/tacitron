@@ -42,12 +42,17 @@ export default function PlayScreen() {
 
   return (
     <View style={styles.container}>
-      <ResourceHud 
-        energy={142} 
-        alloy={89} 
-        power={2340} 
-        seasonTier={12} 
-      />
+      <View style={styles.header}>
+        <ResourceHud 
+          energy={142} 
+          alloy={89} 
+          power={2340} 
+          seasonTier={12} 
+        />
+        <Pressable style={styles.logoutButtonMobile} onPress={handleLogout}>
+          <Text style={styles.logoutButtonTextMobile}>LOGOUT</Text>
+        </Pressable>
+      </View>
       
       <View style={styles.content}>
         <BoardPreview />
@@ -63,6 +68,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#0f0f11',
+  },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#161618',
+    paddingRight: 16,
   },
   content: {
     flex: 1,
@@ -104,5 +115,18 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 16,
     fontWeight: 'bold',
+  },
+  logoutButtonMobile: {
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    backgroundColor: '#ef4444',
+    borderRadius: 6,
+    marginLeft: 'auto',
+  },
+  logoutButtonTextMobile: {
+    color: '#fff',
+    fontSize: 12,
+    fontWeight: 'bold',
+    ...(Platform.OS !== 'web' && { letterSpacing: 1 }),
   },
 }); 
