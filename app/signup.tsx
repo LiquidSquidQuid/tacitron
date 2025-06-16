@@ -188,9 +188,13 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#00ff88',
     letterSpacing: 4,
-    textShadowColor: '#00ff88',
-    textShadowOffset: { width: 0, height: 0 },
-    textShadowRadius: 8,
+    ...(Platform.OS === 'web' ? {
+      textShadow: '0 0 8px #00ff88',
+    } : {
+      textShadowColor: '#00ff88',
+      textShadowOffset: { width: 0, height: 0 },
+      textShadowRadius: 8,
+    }),
   },
   subtitle: {
     fontSize: 14,

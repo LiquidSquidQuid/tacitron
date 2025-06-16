@@ -91,21 +91,22 @@ export default function Index() {
           </View>
         </View>
         
-        <View style={styles.particles}>
-          {[...Array(20)].map((_, i) => (
-            <View 
-              key={i} 
-              style={[
-                styles.particle,
-                {
-                  left: Math.random() * width,
-                  top: Math.random() * height,
-                  animationDelay: `${Math.random() * 5}s`,
-                }
-              ]} 
-            />
-          ))}
-        </View>
+        {Platform.OS !== 'web' && (
+          <View style={styles.particles}>
+            {[...Array(20)].map((_, i) => (
+              <View 
+                key={i} 
+                style={[
+                  styles.particle,
+                  {
+                    left: Math.random() * width,
+                    top: Math.random() * height,
+                  }
+                ]} 
+              />
+            ))}
+          </View>
+        )}
       </LinearGradient>
     </View>
   );
@@ -146,9 +147,13 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#00ff88',
     letterSpacing: 6,
-    textShadowColor: '#00ff88',
-    textShadowOffset: { width: 0, height: 0 },
-    textShadowRadius: 10,
+    ...(Platform.OS === 'web' ? {
+      textShadow: '0 0 10px #00ff88',
+    } : {
+      textShadowColor: '#00ff88',
+      textShadowOffset: { width: 0, height: 0 },
+      textShadowRadius: 10,
+    }),
   },
   subtitle: {
     fontSize: 16,
@@ -192,7 +197,6 @@ const styles = StyleSheet.create({
   buttons: {
     width: '100%',
     paddingHorizontal: 20,
-    gap: 16,
   },
   button: {
     paddingVertical: 16,
