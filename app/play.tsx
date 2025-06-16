@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Text, Platform, Pressable } from 'react-native';
+import { router } from 'expo-router';
 import ResourceHud from '../components/ResourceHud';
 import BoardPreview from '../components/BoardPreview';
 import BandwidthGauge from '../components/BandwidthGauge';
 import CommandConsole from '../components/CommandConsole';
+import { supabase } from '../lib/supabaseClient';
 
 export default function PlayScreen() {
   const [currentBP, setCurrentBP] = useState(25);
@@ -15,6 +17,28 @@ export default function PlayScreen() {
     }, 6000);
     return () => clearInterval(interval);
   }, [capBP]);
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    router.replace('/');
+  };
+
+  if (Platform.OS === 'web') {
+    return (
+      <View style={styles.container}>
+        <View style={styles.webFallback}>
+          <Text style={styles.webTitle}>TACITRON</Text>
+          <Text style={styles.webSubtitle}>Game interface loading...</Text>
+          <Text style={styles.webInfo}>Energy: 142 | Alloy: 89 | Power: 2340 | Tier: 12</Text>
+          <Text style={styles.webInfo}>Bandwidth: {currentBP}/{capBP} BP</Text>
+          
+          <Pressable style={styles.logoutButton} onPress={handleLogout}>
+            <Text style={styles.logoutButtonText}>LOGOUT</Text>
+          </Pressable>
+        </View>
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
@@ -43,5 +67,42 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     justifyContent: 'center',
+  },
+  webFallback: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+  },
+  webTitle: {
+    fontSize: 48,
+    fontWeight: 'bold',
+    color: '#00ff88',
+    marginBottom: 20,
+  },
+  webSubtitle: {
+    fontSize: 18,
+    color: '#64b5f6',
+    marginBottom: 40,
+  },
+  webInfo: {
+    fontSize: 16,
+    color: '#e0e0e0',
+    marginBottom: 10,
+    textAlign: 'center',
+  },
+  logoutButton: {
+    marginTop: 40,
+    paddingVertical: 12,
+    paddingHorizontal: 24,
+    backgroundColor: '#ef4444',
+    borderRadius: 8,
+    borderWidth: 2,
+    borderColor: '#ef4444',
+  },
+  logoutButtonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 }); 
